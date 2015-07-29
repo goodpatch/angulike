@@ -95,49 +95,51 @@
           }
       ])
 
-      // .directive('pocket', [
-      //     '$window',
-      //     function ($window) {
-      //         return {
-      //             restrict: 'A',
-      //             scope: {
-      //                 pocket: '=',
-      //                 pocketUrl: '='
-      //             },
-      //             link: function (scope, element, attrs) {
-      //                 if (!$window.poc) {
-      //                     // Load Twitter SDK if not already loaded
-      //                     $.getScript('https://widgets.getpocket.com/v1/j/btn.js?v=1', function () {
-      //                       console.log($window);
-      //                         renderPocketButton();
-      //                     });
-      //                 } else {
-      //                     renderPocketButton();
-      //                 }
-      //
-      //                 var watchAdded = false;
-      //                 function renderPocketButton() {
-      //                     if (!scope.pocket && !watchAdded) {
-      //                         // wait for data if it hasn't loaded yet
-      //                         watchAdded = true;
-      //                         var unbindWatch = scope.$watch('pocket', function (newValue, oldValue) {
-      //                             if (newValue) {
-      //                                 renderPocketButton();
-      //
-      //                                 // only need to run once
-      //                                 unbindWatch();
-      //                             }
-      //                         });
-      //                         return;
-      //                     } else {
-      //                         element.html('<a class="pocket-btn" data-pocket-label="pocket" data-pocket-count="none" data-lang="en"></a>');
-      //                         // $window.twttr.widgets.load(element.parent()[0]);
-      //                     }
-      //                 }
-      //             }
-      //         };
-      //     }
-      // ])
+      .directive('pocket', [
+          '$window', '$location',
+          function ($window, $location) {
+              return {
+                  restrict: 'A',
+                  scope: {
+                      pocket: '='
+                      // pocketUrl: '='
+                  },
+                  link: function (scope, element, attrs) {
+                      // if (!$window.poc) {
+                      //     // Load Twitter SDK if not already loaded
+                          $.getScript('https://widgets.getpocket.com/v1/j/btn.js?v=1', function () {
+                            !function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");
+                            renderPocketButton();
+                          });
+                      // } else {
+                      //     renderPocketButton();
+                      // }
+
+                      var watchAdded = false;
+                      function renderPocketButton() {
+                          if (!scope.pocket && !watchAdded) {
+                              // wait for data if it hasn't loaded yet
+                              watchAdded = true;
+                              var unbindWatch = scope.$watch('pocket', function (newValue, oldValue) {
+                                  console.log('newValue',newValue);
+                                  console.log('oldValue', oldValue);
+                                  if (newValue) {
+                                      renderPocketButton();
+
+                                      // only need to run once
+                                      // unbindWatch();
+                                  }
+                              });
+                              return;
+                          } else {
+                            console.log('pocket', scope.pocket);
+                            element.html('<a class="pocket-btn" data-pocket-label="pocket" data-pocket-count="none" data-lang="en" data-save-url="' + scope.pocket + '">Pocket</a>');
+                          }
+                      }
+                  }
+              };
+          }
+      ])
 
 
       .directive('tweet', [
