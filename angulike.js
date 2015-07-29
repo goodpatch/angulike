@@ -36,11 +36,11 @@
                               var unbindWatch = scope.$watch('fbLike', function (newValue, oldValue) {
                                   if (newValue) {
                                       renderLikeButton();
-                                      
+
                                       // only need to run once
-                                      unbindWatch();
+                                      // unbindWatch();
                                   }
-                                  
+
                               });
                               return;
                           } else {
@@ -80,7 +80,7 @@
                                       renderPlusButton();
 
                                       // only need to run once
-                                      unbindWatch();
+                                      // unbindWatch();
                                   }
 
                               });
@@ -122,9 +122,9 @@
                               var unbindWatch = scope.$watch('tweet', function (newValue, oldValue) {
                                   if (newValue) {
                                       renderTweetButton();
-                                  
+
                                       // only need to run once
-                                      unbindWatch();
+                                      // unbindWatch();
                                   }
                               });
                               return;
@@ -178,9 +178,9 @@
                               var unbindWatch = scope.$watch('pinIt', function (newValue, oldValue) {
                                   if (newValue) {
                                       renderPinItButton();
-                                      
+
                                       // only need to run once
-                                      unbindWatch();
+                                      // unbindWatch();
                                   }
                               });
                               return;
