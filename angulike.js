@@ -1,5 +1,5 @@
-﻿/**
- * AngularJS directives for social sharing buttons - Facebook Like, Google+, Twitter and Pinterest 
+/**
+ * AngularJS directives for social sharing buttons - Facebook Like, Google+, Twitter and Pinterest
  * @author Jason Watmore <jason@pointblankdevelopment.com.au> (http://jasonwatmore.com)
  * @version 1.2.0
  */
@@ -16,9 +16,9 @@
                   link: function (scope, element, attrs) {
                       if (!$window.FB) {
                           // Load Facebook SDK if not already loaded
-                          $.getScript('//connect.facebook.net/en_US/sdk.js', function () {
+                          $.getScript('//connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.4"', function () {
                               $window.FB.init({
-                                  appId: $rootScope.facebookAppId,
+                                  // appId: $rootScope.facebookAppId,
                                   xfbml: true,
                                   version: 'v2.0'
                               });
@@ -38,13 +38,13 @@
                                       renderLikeButton();
 
                                       // only need to run once
-                                      // unbindWatch();
+                                      unbindWatch();
                                   }
 
                               });
                               return;
                           } else {
-                              element.html('<div class="fb-like"' + (!!scope.fbLike ? ' data-href="' + scope.fbLike + '"' : '') + ' data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>');
+                              element.html('<div class="fb-like"' + (!!scope.fbLike ? ' data-href="' + scope.fbLike + '"' : '') + ' data-layout="button"></div>');
                               $window.FB.XFBML.parse(element.parent()[0]);
                           }
                       }
@@ -80,7 +80,7 @@
                                       renderPlusButton();
 
                                       // only need to run once
-                                      // unbindWatch();
+                                      unbindWatch();
                                   }
 
                               });
@@ -94,6 +94,51 @@
               };
           }
       ])
+
+      // .directive('pocket', [
+      //     '$window',
+      //     function ($window) {
+      //         return {
+      //             restrict: 'A',
+      //             scope: {
+      //                 pocket: '=',
+      //                 pocketUrl: '='
+      //             },
+      //             link: function (scope, element, attrs) {
+      //                 if (!$window.poc) {
+      //                     // Load Twitter SDK if not already loaded
+      //                     $.getScript('https://widgets.getpocket.com/v1/j/btn.js?v=1', function () {
+      //                       console.log($window);
+      //                         renderPocketButton();
+      //                     });
+      //                 } else {
+      //                     renderPocketButton();
+      //                 }
+      //
+      //                 var watchAdded = false;
+      //                 function renderPocketButton() {
+      //                     if (!scope.pocket && !watchAdded) {
+      //                         // wait for data if it hasn't loaded yet
+      //                         watchAdded = true;
+      //                         var unbindWatch = scope.$watch('pocket', function (newValue, oldValue) {
+      //                             if (newValue) {
+      //                                 renderPocketButton();
+      //
+      //                                 // only need to run once
+      //                                 unbindWatch();
+      //                             }
+      //                         });
+      //                         return;
+      //                     } else {
+      //                         element.html('<a class="pocket-btn" data-pocket-label="pocket" data-pocket-count="none" data-lang="en"></a>');
+      //                         // $window.twttr.widgets.load(element.parent()[0]);
+      //                     }
+      //                 }
+      //             }
+      //         };
+      //     }
+      // ])
+
 
       .directive('tweet', [
           '$window', '$location',
@@ -124,12 +169,12 @@
                                       renderTweetButton();
 
                                       // only need to run once
-                                      // unbindWatch();
+                                      unbindWatch();
                                   }
                               });
                               return;
                           } else {
-                              element.html('<a href="https://twitter.com/share" class="twitter-share-button" data-text="' + scope.tweet + '" data-url="' + (scope.tweetUrl || $location.absUrl()) + '">Tweet</a>');
+                              element.html('<a href="https://twitter.com/share" class="twitter-share-button" data-text="' + scope.tweet + '" data-url="' + (scope.tweetUrl || $location.absUrl()) + '" data-count="none">Tweet</a>');
                               $window.twttr.widgets.load(element.parent()[0]);
                           }
                       }
@@ -180,7 +225,7 @@
                                       renderPinItButton();
 
                                       // only need to run once
-                                      // unbindWatch();
+                                      unbindWatch();
                                   }
                               });
                               return;
