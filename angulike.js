@@ -11,15 +11,15 @@
               return {
                   restrict: 'A',
                   scope: {
-                      fbLike: '=?'
+                      fbLike: '='
                   },
                   link: function (scope, element, attrs) {
                       if (!$window.FB) {
                           // Load Facebook SDK if not already loaded
-                          $.getScript('//connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.4"', function () {
+                          $.getScript('//connect.facebook.net/ja_JP/sdk.js#xfbml=1"', function () {
                               $window.FB.init({
                                   // appId: $rootScope.facebookAppId,
-                                  xfbml: true,
+                                  // xfbml: false,
                                   version: 'v2.0'
                               });
                               renderLikeButton();
@@ -30,23 +30,23 @@
 
                       var watchAdded = false;
                       function renderLikeButton() {
-                          if (!!attrs.fbLike && !scope.fbLike && !watchAdded) {
-                              // wait for data if it hasn't loaded yet
-                              watchAdded = true;
-                              var unbindWatch = scope.$watch('fbLike', function (newValue, oldValue) {
-                                  if (newValue) {
-                                      renderLikeButton();
-
-                                      // only need to run once
-                                      unbindWatch();
-                                  }
-
-                              });
-                              return;
-                          } else {
+                          // if (!!attrs.fbLike && !scope.fbLike && !watchAdded) {
+                          //     // wait for data if it hasn't loaded yet
+                          //     watchAdded = true;
+                          //     var unbindWatch = scope.$watch('fbLike', function (newValue, oldValue) {
+                          //         if (newValue) {
+                          //             renderLikeButton();
+                          //
+                          //             // only need to run once
+                          //             unbindWatch();
+                          //         }
+                          //
+                          //     });
+                          //     return;
+                          // } else {
                               element.html('<div class="fb-like"' + (!!scope.fbLike ? ' data-href="' + scope.fbLike + '"' : '') + ' data-layout="button"></div>');
                               $window.FB.XFBML.parse(element.parent()[0]);
-                          }
+                          // }
                       }
                   }
               };
