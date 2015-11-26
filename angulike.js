@@ -7,15 +7,17 @@
     angular.module('angulike', [])
 
       .directive('fbLike', [
-          '$window', '$rootScope', function ($window, $rootScope) {
+          '$window', '$rootScope', '$translate', function ($window, $rootScope) {
               return {
                   restrict: 'A',
                   scope: {
                       fbLike: '='
                   },
                   link: function (scope, element, attrs) {
-                      var local = attrs.local;
-                      if (local === void 0) local = 'ja_JP'
+                      var local = $translate.use();
+                      if (local === 'en') local = 'en_US';
+                      if (local === 'jp') local = 'ja_JP';
+                      if (local === void 0) local = 'ja_JP';
                       if (!$window.FB) {
                           // Load Facebook SDK if not already loaded
                           $.getScript('//connect.facebook.net/' + local + '/sdk.js#xfbml=1"', function () {
