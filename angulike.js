@@ -14,9 +14,11 @@
                       fbLike: '='
                   },
                   link: function (scope, element, attrs) {
+                      var local = attrs.local;
+                      if (local === void 0) local = 'ja_JP'
                       if (!$window.FB) {
                           // Load Facebook SDK if not already loaded
-                          $.getScript('//connect.facebook.net/ja_JP/sdk.js#xfbml=1"', function () {
+                          $.getScript('//connect.facebook.net/' + local + '/sdk.js#xfbml=1"', function () {
                               $window.FB.init({
                                   // appId: $rootScope.facebookAppId,
                                   // xfbml: false,
