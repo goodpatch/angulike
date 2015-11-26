@@ -7,7 +7,7 @@
     angular.module('angulike', [])
 
       .directive('fbLike', [
-          '$window', '$rootScope', '$translate', function ($window, $rootScope) {
+          '$window', '$rootScope', '$translate', function ($window, $rootScope, $translate) {
               return {
                   restrict: 'A',
                   scope: {
